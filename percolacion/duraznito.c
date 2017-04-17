@@ -4,9 +4,9 @@
 #define n 10
 #define p 0.5
 
-void init_red(int N, int a[]);
-void print_red(int N, int a[]);
-int clase(int N, int a[]);
+void init_red(int N, int red[]);
+void print_red(int N, int red[]);
+void clases(int N, int red[]);
 
 int main()
 {
@@ -15,14 +15,14 @@ int main()
 	init_red(n, red);
 	print_red(n, red);
 	// idem
-	clase(n,red);
+	clases(n,red);
 	print_red(n, red);
 
 	return 0;
 }
 
 
-void init_red(int N, int a[]){
+void init_red(int N, int red[]){
 	int i;
 	float r;
 
@@ -32,170 +32,138 @@ void init_red(int N, int a[]){
 		r = r/100;
 
 		if (r<=p){
-			a[i] = 1;
+			red[i] = 1;
 				}
 		else{
-			 a[i] = 0;
+			 red[i] = 0;
 			  }
 		}
-  // ojo! este return devuelve el puntero de el puntero de a ( a[] == *a )
+  // ojo! este return devuelve el puntero de el puntero de a ( red[] == *a )
 	// saque el return
 }
 
-void print_red(int N, int a[]){
+void print_red(int N, int red[]){
 	int i;
 
 	printf("\n");
 
 	for (i = 0 ; i < N*N ; i++){
 		if ((i)%N == 0){
-			printf("\n %3i", a[i]);
+			printf("\n %3i", red[i]);
 		}
 		else{
-			printf("%3i",a[i]);
+			printf("%3i",red[i]);
 			}
 		}
 	printf("\n");
 	printf("\n");
 }
 
+int clase_de_posicion(int clases[], int posicion) {
+	while (clases[posicion]<0){
+		posicion = -clases[posicion];
+	}
+
+	return posicion;
+}
+
 // hasta aca es lo mismo que el archivo percolacion.c
 ////////////////////////////////////////////////////////////////////////////////
 
 
-int clase(int N, int a[])
+void clases(int N, int red[])
 {
-	int clase[N*N/2]; // la maxima cantidad de clases se da para el caso "tablero de ajedrez"
+	int clases[N*N/2]; // la maxima cantidad de clasess se da para el caso "tablero de ajedrez"
 	int i, j, s1, s2;
-	int clase_nueva = 2;
-
-	for (i=0; i<N*N/2; i++){ // inicializa vector de clases
-
-		clase[i] = 0;
-
+	int clases_nueva = 2;
+	for (i=0; i<N*N/2; i++){ // inicializa vector de clasess
+		clases[i] = 0;
 	}
 
 	// Recorre la red y etiqueta clusters
-
 	for (i=0; i<N; i++){ // recorre filas
-
 		for (j=0; j<N; j++){ // recorre columnas
+			int elemento_actual = i*N+j;
+			int elemento_de_la_izquierda = i*N+j-N;
+			int elemento_de_arriba = i*N+j-1;
 
-			if (a[i*N+j]==1){ // si el elemento seleccionado esta ocupado
-
+			if (red[i*N+j]==1){ // si el elemento seleccionado esta ocupado
 				if (i==0 && j==0){ //primer elemento de la red
-
-					a[i*N+j] = clase_nueva;
-					clase[clase_nueva] = clase_nueva;
-					clase_nueva++;
+					red[i*N+j] = clases_nueva;
+					clases[clases_nueva] = clases_nueva;
+					clases_nueva++;
 				}
 
 				else if (i==0){// primera fila, solo vecinos a la izquierda
-
-					if (a[i*N+j-1]==0){
-						a[i*N+j] = clase_nueva;
-						clase[clase_nueva] = clase_nueva;
-						clase_nueva++;
+					if (red[elemento_de_arriba]==0){
+						red[i*N+j] = clases_nueva;
+						clases[clases_nueva] = clases_nueva;
+						clases_nueva++;
 					}
 
-					else if (a[i*N+j-1]!=1){
-						s1 = a[i*N+j-1];
-						while (clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						// clase[s1] = s1 (ya esta de mas?)
-						a[i*N+j] = s1;
+					else if (red[elemento_de_arriba]!=0){
+						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);;
 					}
 				}
 
 				else if (j==0){ //primera columna
-
-					if (a[(i-1)*N+j]==0){
-						a[i*N+j] = clase_nueva;
-						clase[clase_nueva] = clase_nueva;
-						clase_nueva++;
+					if (red[(i-1)*N+j]==0){
+						red[i*N+j] = clases_nueva;
+						clases[clases_nueva] = clases_nueva;
+						clases_nueva++;
 					}
 
-					else if (a[i*N+j-N]!=1){
-						s1 = a[i*N+j-N];
-						while (clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						clase[s1] = s1; //(ya esta de mas?)
-						a[i*N+j] = s1;
+					else if (red[elemento_de_la_izquierda]!=0){
+						s1 = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						clases[s1] = s1; //(ya esta de mas?)
+						red[i*N+j] = s1;
 					}
 				}
 
 				else { //bulk de la red
-
-					if (a[i*N+j-1]==0 && a[i*N+j-N]==0){ // caso trivial, vecinos nulos
-						a[i*N+j] = clase_nueva;
-						clase[clase_nueva] = clase_nueva;
-						clase_nueva++;
+					if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]==0){ // caso trivial, vecinos nulos
+						red[i*N+j] = clases_nueva;
+						clases[clases_nueva] = clases_nueva;
+						clases_nueva++;
 					}
 
-					else if (a[i*N+j-1]!=1 && a[i*N+j-N]==0){ // caso simple, vecino a la izquierda
-						s1 = a[i*N+j-1];
-						while (clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						a[i*N+j] = s1;
+					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]==0){ // caso simple, vecino a la izquierda
+						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);
 					}
 
-					else if (a[i*N+j-1]==0 && a[i*N+j-N]!=1){ //caso simple, vecino arriba
-						s1 = a[i*N+j-N];
-						while (clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						a[i*N+j] = s1;
+					else if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]!=0){ //caso simple, vecino arriba
+						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 					}
 
-					else if (a[i*N+j-1]!=1 && a[i*N+j-N]!=1 && a[i*N+j-1]==a[i*N+j-N]){
-						s1 = a[i*N+j-1];
-						while(clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						a[i*N+j] = s1;
+					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]==red[elemento_de_la_izquierda]){
+						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);
 					}
 
-					else if (a[i*N+j-1]!=1 && a[i*N+j-N]!=1 && a[i*N+j-1]!=a[i*N+j-N]){ //caso complicado, conficto de etiquetas
-						s1 = a[i*N+j-1];
-						s2 = a[i+N+j-N];
-						while (clase[s1]<0){
-							s1 = -clase[s1];
-						}
-						while (clase[s2]<0){
-							s2 = -clase[s2];
-						}
+					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]!=red[elemento_de_la_izquierda]){ //caso complicado, conficto de etiquetas
+						s1 = clase_de_posicion(clases, red[elemento_de_arriba]);
+						s2 = clase_de_posicion(clases, red[i+N+j-N]);
 
 						if (s1<s2){
-							a[i*N+j] = s1;
-							clase[s2] = -s1;
+							red[i*N+j] = s1;
+							clases[s2] = -s1;
 						}
 
 						else if (s2<s1){
-							a[i*N+j] = s2;
-							clase[s1] = -s2;
+							red[i*N+j] = s2;
+							clases[s1] = -s2;
 						}
-
 					}
-
 				}
-
-
 			}
-
 		}
 	}
 
 	// re-etiquetado corrige etiquetas falsas
 	for (i=0; i<N*N/2; i++){
-		s1 = a[i];
-		while (clase[s1]<0){
-			s1 = -clase[s1];
+		s1 = red[i];
+		while (clases[s1]<0){
+			s1 = -clases[s1];
 		}
-		a[i] = s1;
+		red[i] = s1;
 	}
-
-	return *a;
 }
