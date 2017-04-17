@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define n 10
 #define p 0.5
@@ -7,6 +8,7 @@
 void init_red(int N, int red[]);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
+// bool percola(int N, int red[]);
 
 int main()
 {
@@ -17,6 +19,8 @@ int main()
 	// idem
 	clases(n,red);
 	print_red(n, red);
+
+	// percola(n, red);
 
 	return 0;
 }
@@ -75,12 +79,10 @@ int generar_clase_nueva(int red[], int clases[], int elemento_actual, int clase_
 
 // hasta aca es lo mismo que el archivo percolacion.c
 ////////////////////////////////////////////////////////////////////////////////
-
-
 void clases(int N, int red[])
 {
 	int clases[N*N/2]; // la maxima cantidad de clasess se da para el caso "tablero de ajedrez"
-	int i, j, s1, s2;
+	int i, j;
 	int clase_nueva = 2;
 	for (i=0; i<N*N/2; i++){ // inicializa vector de clasess
 		clases[i] = 0;
@@ -102,7 +104,6 @@ void clases(int N, int red[])
 					if (red[elemento_de_arriba]==0){
 						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 					}
-
 					else if (red[elemento_de_arriba]!=0){
 						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);;
 					}
@@ -114,9 +115,7 @@ void clases(int N, int red[])
 					}
 
 					else if (red[elemento_de_la_izquierda]!=0){
-						s1 = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
-						clases[s1] = s1; //(ya esta de mas?)
-						red[elemento_actual] = s1;
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 					}
 				}
 
@@ -138,18 +137,18 @@ void clases(int N, int red[])
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]!=red[elemento_de_la_izquierda]){ //caso complicado, conficto de etiquetas
-						s1 = clase_de_posicion(clases, red[elemento_de_arriba]);
+						int clase_de_arriba = clase_de_posicion(clases, red[elemento_de_arriba]);
 						// Aca estaba haciendo mal la cuenta del elemento de la izquierda
-						s2 = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						int clase_de_izquierda = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 
-						if (s1<s2){
-							red[elemento_actual] = s1;
-							clases[s2] = -s1;
+						if (clase_de_arriba<clase_de_izquierda){
+							red[elemento_actual] = clase_de_arriba;
+							clases[clase_de_izquierda] = -clase_de_arriba;
 						}
 
-						else if (s2<s1){
-							red[elemento_actual] = s2;
-							clases[s1] = -s2;
+						else if (clase_de_izquierda<clase_de_arriba){
+							red[elemento_actual] = clase_de_izquierda;
+							clases[clase_de_arriba] = -clase_de_izquierda;
 						}
 					}
 				}
@@ -158,11 +157,14 @@ void clases(int N, int red[])
 	}
 
 	// re-etiquetado corrige etiquetas falsas
-	for (i=0; i<N*N/2; i++){
-		s1 = red[i];
-		while (clases[s1]<0){
-			s1 = -clases[s1];
-		}
-		red[i] = s1;
+	for (i = 0 ; i < N*N ; i++) {
+		red[i] = clase_de_posicion(clases, red[i]);
 	}
 }
+
+// bool percola(int N, int red[]) {
+// 	int prinera_fila[N] = red[0];
+// 	int ultima_fila[N] = red[N*(N - 1)];
+//
+// 	return true;
+// }
