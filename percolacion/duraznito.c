@@ -67,6 +67,12 @@ int clase_de_posicion(int clases[], int posicion) {
 	return posicion;
 }
 
+int generar_clase_nueva(int red[], int clases[], int elemento_actual, int clase_nueva) {
+	red[elemento_actual] = clase_nueva;
+	clases[clase_nueva] = clase_nueva;
+	return ++clase_nueva;
+}
+
 // hasta aca es lo mismo que el archivo percolacion.c
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +81,7 @@ void clases(int N, int red[])
 {
 	int clases[N*N/2]; // la maxima cantidad de clasess se da para el caso "tablero de ajedrez"
 	int i, j, s1, s2;
-	int clases_nueva = 2;
+	int clase_nueva = 2;
 	for (i=0; i<N*N/2; i++){ // inicializa vector de clasess
 		clases[i] = 0;
 	}
@@ -84,72 +90,65 @@ void clases(int N, int red[])
 	for (i=0; i<N; i++){ // recorre filas
 		for (j=0; j<N; j++){ // recorre columnas
 			int elemento_actual = i*N+j;
-			int elemento_de_la_izquierda = i*N+j-N;
-			int elemento_de_arriba = i*N+j-1;
+			int elemento_de_arriba = elemento_actual-N;
+			int elemento_de_la_izquierda = elemento_actual-1;
 
-			if (red[i*N+j]==1){ // si el elemento seleccionado esta ocupado
+			if (red[elemento_actual]==1){ // si el elemento seleccionado esta ocupado
 				if (i==0 && j==0){ //primer elemento de la red
-					red[i*N+j] = clases_nueva;
-					clases[clases_nueva] = clases_nueva;
-					clases_nueva++;
+					clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 				}
 
-				else if (i==0){// primera fila, solo vecinos a la izquierda
+				else if (j==0){// primera columna, solo vecinos arriba
 					if (red[elemento_de_arriba]==0){
-						red[i*N+j] = clases_nueva;
-						clases[clases_nueva] = clases_nueva;
-						clases_nueva++;
+						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 					}
 
 					else if (red[elemento_de_arriba]!=0){
-						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);;
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);;
 					}
 				}
 
-				else if (j==0){ //primera columna
-					if (red[(i-1)*N+j]==0){
-						red[i*N+j] = clases_nueva;
-						clases[clases_nueva] = clases_nueva;
-						clases_nueva++;
+				else if (i==0){ //primera fila
+					if (red[elemento_de_la_izquierda]==0){
+						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 					}
 
 					else if (red[elemento_de_la_izquierda]!=0){
 						s1 = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 						clases[s1] = s1; //(ya esta de mas?)
-						red[i*N+j] = s1;
+						red[elemento_actual] = s1;
 					}
 				}
 
 				else { //bulk de la red
 					if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]==0){ // caso trivial, vecinos nulos
-						red[i*N+j] = clases_nueva;
-						clases[clases_nueva] = clases_nueva;
-						clases_nueva++;
+						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]==0){ // caso simple, vecino a la izquierda
-						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
 					}
 
 					else if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]!=0){ //caso simple, vecino arriba
-						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]==red[elemento_de_la_izquierda]){
-						red[i*N+j] = clase_de_posicion(clases, red[elemento_de_arriba]);
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]!=red[elemento_de_la_izquierda]){ //caso complicado, conficto de etiquetas
 						s1 = clase_de_posicion(clases, red[elemento_de_arriba]);
-						s2 = clase_de_posicion(clases, red[i+N+j-N]);
+						// Aca estaba haciendo mal la cuenta del elemento de la izquierda
+						s2 = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
 
 						if (s1<s2){
-							red[i*N+j] = s1;
+							red[elemento_actual] = s1;
 							clases[s2] = -s1;
 						}
 
 						else if (s2<s1){
-							red[i*N+j] = s2;
+							red[elemento_actual] = s2;
 							clases[s1] = -s2;
 						}
 					}
