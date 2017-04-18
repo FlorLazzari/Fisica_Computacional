@@ -8,7 +8,7 @@
 void init_red(int N, int red[]);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
-// bool percola(int N, int red[]);
+bool percola(int N, int red[]);
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 	clases(n,red);
 	print_red(n, red);
 
-	// percola(n, red);
+	printf("%s\n", percola(n, red) ? "percola" : "no percola");
 
 	return 0;
 }
@@ -162,9 +162,22 @@ void clases(int N, int red[])
 	}
 }
 
-// bool percola(int N, int red[]) {
-// 	int prinera_fila[N] = red[0];
-// 	int ultima_fila[N] = red[N*(N - 1)];
-//
-// 	return true;
-// }
+bool percola(int N, int red[]) {
+	int *primera_fila = &red[0];
+	int *ultima_fila = &red[N*(N - 1)];
+
+	int indice_primera_fila, indice_ultima_fila;
+
+	for (indice_primera_fila = 0; indice_primera_fila < N; indice_primera_fila++) {
+		int elemento_primera_fila = primera_fila[indice_primera_fila];
+		for (indice_ultima_fila = 0; indice_ultima_fila < N; indice_ultima_fila++) {
+			int elemento_ultima_fila = ultima_fila[indice_ultima_fila];
+
+			if (elemento_primera_fila == elemento_ultima_fila && elemento_ultima_fila != 0) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
