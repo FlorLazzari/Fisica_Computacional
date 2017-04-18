@@ -105,7 +105,7 @@ void clases(int N, int red[])
 						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
 					}
 					else if (red[elemento_de_arriba]!=0){
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);;
+						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
 					}
 				}
 
@@ -150,13 +150,17 @@ void clases(int N, int red[])
 							red[elemento_actual] = clase_de_izquierda;
 							clases[clase_de_arriba] = -clase_de_izquierda;
 						}
+
+						else{
+							red[elemento_actual] = clase_de_izquierda;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	// re-etiquetado corrige etiquetas falsas
+	//re-etiquetado corrige etiquetas falsas
 	for (i = 0 ; i < N*N ; i++) {
 		red[i] = clase_de_posicion(clases, red[i]);
 	}
