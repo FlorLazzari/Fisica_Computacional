@@ -9,6 +9,10 @@ void init_red(int N, int red[]);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
 bool percola(int N, int red[]);
+int tags(int N, int red[]);
+int ns(int N, int red[]);
+void print_ns(int N, int red[]);
+
 
 int main()
 {
@@ -21,6 +25,8 @@ int main()
 	print_red(n, red);
 
 	printf("%s\n", percola(n, red) ? "percola" : "no percola");
+
+	print_ns(n, red);
 
 	return 0;
 }
@@ -185,3 +191,80 @@ bool percola(int N, int red[]) {
 
 	return false;
 }
+
+int tags(int N, int red[]){
+	int i;
+	int tags[N*N];
+
+	for (i=0; i<N*N; i++){
+		tags[i] = 0;
+	}
+
+
+	for (i=0; i<N*N; i++){
+		if(red[i]!=0){
+		tags[red[i]]++;
+		}
+	}
+	return *tags;
+}
+
+int ns(int N, int red[]){
+	int tag[N*N];  
+	int tamanos[N*N];
+	int i;
+
+	*tag = tags(N, red);
+
+	for (i=0; i<N*N; i++){
+		tamanos[i] = 0;
+	}
+
+	for (i=0; i<N*N; i++){
+		if (tag[i]!=0){
+		tamanos[tag[i]]++;
+		}
+	}
+	return *tamanos;
+}
+
+void print_ns(int N, int red[]){
+
+	int tags[N*N];
+	int tamanos[N*N];
+	int i;
+
+	for (i=0; i<N*N; i++){
+		tags[i] = 0;
+	}
+
+
+	for (i=0; i<N*N; i++){
+		if(red[i]!=0){
+		tags[red[i]]++;
+		}
+	}
+
+	for (i=0; i<N*N; i++){
+		tamanos[i] = 0;
+	}
+
+	for (i=0; i<N*N; i++){
+		if (tags[i]!=0){
+		tamanos[tags[i]]++;
+		}
+	}
+
+	printf("\n");
+	for (i=1; i<N*N; i++){
+		if (tamanos[i]!=0){
+		printf("La cantidad de clusters de tamaño %i es %i \n", i, tamanos[i]);
+		}
+	} 
+	
+	
+}
+
+
+
+
