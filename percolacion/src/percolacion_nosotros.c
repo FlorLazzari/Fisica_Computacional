@@ -9,14 +9,17 @@ void init_red(int N, int red[], float p);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
 bool percola(int N, int red[]);
-int tags(int N, int red[]);
-int ns(int N, int red[]);
+int tags(int N, int red[], int tag[]);
+int ns(int N, int red[],int tag[], int tamanos[]);
 void print_ns(int N, int red[]);
 void calcular_p_c(int num_iteraciones, int red[]);
+int fuerza(int N, int red[], int tag[]);
 
 int main()
 {
 	int red[n*n];
+	int tag[n*n];
+	int tamanos[n*n];
 	srand(time(NULL));
 	calcular_p_c(15, red);
 	// no hace falta devolver el puntero ya que la funcion no lo cambia
@@ -27,6 +30,13 @@ int main()
 	print_red(n, red);
 
 	printf("%s\n", percola(n, red) ? "percola" : "no percola");
+
+	printf("\n");
+	tags(n, red, tag);
+	//ns(n, red, tag, tamanos);
+	if (percola(n, red)){
+		printf("La fuerza del cluster percolante es %i \n", fuerza(n, red, tag) );
+	}
 
 	print_ns(n, red);
 	
@@ -195,29 +205,26 @@ bool percola(int N, int red[]) {
 	return false;
 }
 
-int tags(int N, int red[]){
+int tags(int N, int *red, int *tag){
+	
 	int i;
-	int tags[N*N];
-
+	
 	for (i=0; i<N*N; i++){
-		tags[i] = 0;
+		tag[i] = 0;
 	}
-
 
 	for (i=0; i<N*N; i++){
 		if(red[i]!=0){
-		tags[red[i]]++;
+		tag[red[i]]++;
 		}
 	}
-	return *tags;
 }
 
-int ns(int N, int red[]){
-	int tag[N*N];  
-	int tamanos[N*N];
+int ns(int N, int *red, int *tag, int *tamanos){
+
 	int i;
 
-	*tag = tags(N, red);
+	tags(N, red, tag);
 
 	for (i=0; i<N*N; i++){
 		tamanos[i] = 0;
@@ -228,35 +235,16 @@ int ns(int N, int red[]){
 		tamanos[tag[i]]++;
 		}
 	}
-	return *tamanos;
 }
 
 void print_ns(int N, int red[]){
 
-	int tags[N*N];
+	int tag[N*N];
 	int tamanos[N*N];
 	int i;
 
-	for (i=0; i<N*N; i++){
-		tags[i] = 0;
-	}
-
-
-	for (i=0; i<N*N; i++){
-		if(red[i]!=0){
-		tags[red[i]]++;
-		}
-	}
-
-	for (i=0; i<N*N; i++){
-		tamanos[i] = 0;
-	}
-
-	for (i=0; i<N*N; i++){
-		if (tags[i]!=0){
-		tamanos[tags[i]]++;
-		}
-	}
+	tags(N, red, tag);
+	ns(N, red, tag, tamanos);
 
 	printf("\n");
 	for (i=1; i<N*N; i++){
@@ -264,8 +252,29 @@ void print_ns(int N, int red[]){
 		printf("La cantidad de clusters de tamaño %i es %i \n", i, tamanos[i]);
 		}
 	} 
-	
-	
+}
+
+int fuerza(int N, int red[], int tag[]){
+	if (percola(N, red)){
+		int P;
+		int *primera_fila = &red[0];
+		int *ultima_fila = &red[N*(N - 1)];
+
+		int indice_primera_fila, indice_ultima_fila;
+
+		for (indice_primera_fila = 0; indice_primera_fila < N; indice_primera_fila++) {
+			int elemento_primera_fila = primera_fila[indice_primera_fila];
+			for (indice_ultima_fila = 0; indice_ultima_fila < N; indice_ultima_fila++) {
+				int elemento_ultima_fila = ultima_fila[indice_ultima_fila];
+
+				if (elemento_primera_fila == elemento_ultima_fila && elemento_ultima_fila != 0) {
+					P = tag[elemento_ultima_fila];
+				}
+			}
+		}
+		return P;
+	}
+
 }
 
 
