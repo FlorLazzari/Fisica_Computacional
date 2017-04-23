@@ -32,7 +32,7 @@ int main()
 	printf("%s\n", percola(n, red) ? "percola" : "no percola");
 
 	printf("\n");
-	tags(n, red, tag);
+	tags(n, red, tag); 
 	//ns(n, red, tag, tamanos);
 	if (percola(n, red)){
 		printf("La fuerza del cluster percolante es %i \n", fuerza(n, red, tag) );
@@ -205,6 +205,8 @@ bool percola(int N, int red[]) {
 	return false;
 }
 
+// genera un array contando cuantas veces aparece cada etiqueta (la entrada i es
+// la cantidad de elementos con la etiqueta i)
 int tags(int N, int *red, int *tag){
 	
 	int i;
@@ -220,17 +222,19 @@ int tags(int N, int *red, int *tag){
 	}
 }
 
+// genera un array con la cantidad de clusters de un dado tamaño
+// tamanos[i] es la cantidad de clusters de tamaño i
 int ns(int N, int *red, int *tag, int *tamanos){
 
 	int i;
 
-	tags(N, red, tag);
+	tags(N, red, tag); // genera el vector con el tamaño de cada etiqueta
 
 	for (i=0; i<N*N; i++){
 		tamanos[i] = 0;
 	}
 
-	for (i=0; i<N*N; i++){
+	for (i=0; i<N*N; i++){ // cuando la etiqueta i aparece n veces, se suma uno a tamanos[n]
 		if (tag[i]!=0){
 		tamanos[tag[i]]++;
 		}
@@ -239,8 +243,8 @@ int ns(int N, int *red, int *tag, int *tamanos){
 
 void print_ns(int N, int red[]){
 
-	int tag[N*N];
-	int tamanos[N*N];
+	int tag[N*N]; //genera el array de tamaños de etiquetas
+	int tamanos[N*N]; // genera el array con el ns a partir de las etiquetas
 	int i;
 
 	tags(N, red, tag);
@@ -254,8 +258,10 @@ void print_ns(int N, int red[]){
 	} 
 }
 
+// Calcula la fuerza del cluster percolante P_oo, a partir de la red y del
+// array con los tamaños de las etiquetas
 int fuerza(int N, int red[], int tag[]){
-	if (percola(N, red)){
+	if (percola(N, red)){ // repite lo de la funcion percola 
 		int P;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
@@ -268,7 +274,7 @@ int fuerza(int N, int red[], int tag[]){
 				int elemento_ultima_fila = ultima_fila[indice_ultima_fila];
 
 				if (elemento_primera_fila == elemento_ultima_fila && elemento_ultima_fila != 0) {
-					P = tag[elemento_ultima_fila];
+					P = tag[elemento_ultima_fila]; //mira el tamaño de la etiqueta que percola
 				}
 			}
 		}
