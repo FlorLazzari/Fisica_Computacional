@@ -2,18 +2,40 @@
 #include <time.h>
 #include <stdbool.h>
 
-void init_red(int N, int red[], float p);
-void print_red(int N, int red[]);
-void clases(int N, int red[]);
+#define n 10
+// p ya no es mas una constante, necesito variarla
+
+
+// lo que tenemos:
+// void init_red(int N, int red[], float p); la cambie por llenar
+void print_red(int N, int red[]); // la voy a dejar
+// void clases(int N, int red[]); la cambie por hoshen  (que diferencia hay entre void y int con un return 0?)
+// int generar_clase_nueva(int red[], int hoshen[], int elemento_actual, int clase_nueva); la cambie por actualizar
 bool percola(int N, int red[]);
 void tags(int N, int red[], int tag[]);
 void ns(int N, int red[],int tag[], int tamanos[]);
-//void print_ns(int N, int red[]);
-//void calcular_p_c(int num_iteraciones, int red[]);
+void print_ns(int N, int red[]);
+// void calcular_p_c(int num_iteraciones, int red[]); esto lo puse en otro archivo
 float fuerza(int N, int red[], int tag[]);
 int masa(int N, int red[], int tag[]);
 
-void init_red(int N, int red[], float p){
+// lo que voy cambiando:
+void  llenar(int *red,int N,float prob);
+int   hoshen(int *red,int N);
+int   actualizar(int *red,int *hoshen,int elemento_actual,int clase_nueva);
+
+// lo que nos deberia quedar:
+//void  llenar(int *red,int n,float prob);
+//int   hoshen(int *red,int n);
+//int   actualizar(int *red,int *clase,int s,int frag);
+//void  etiqueta_falsa(int *red,int *clase,int s1,int s2);
+//void  corregir_etiqueta(int *red,int *clase,int n);
+//int   percola(int *red,int n);
+
+
+
+
+void llenar(int *red, int N, float prob){
 	int i;
 	float r;
 
@@ -22,7 +44,7 @@ void init_red(int N, int red[], float p){
 		r = rand()%100;
 		r = r/100;
 
-		if (r<=p){
+		if (r<=prob){
 			red[i] = 1;
 				}
 		else{
@@ -50,28 +72,28 @@ void print_red(int N, int red[]){
 	printf("\n");
 }
 
-int clase_de_posicion(int clases[], int posicion) {
-	while (clases[posicion]<0){
-		posicion = -clases[posicion];
+int clase_de_posicion(int hoshen[], int posicion) {
+	while (hoshen[posicion]<0){
+		posicion = -hoshen[posicion];
 	}
 
 	return posicion;
 }
 
-int generar_clase_nueva(int red[], int clases[], int elemento_actual, int clase_nueva) {
+int actualizar(int red[], int hoshen[], int elemento_actual, int clase_nueva) {
 	red[elemento_actual] = clase_nueva;
-	clases[clase_nueva] = clase_nueva;
+	hoshen[clase_nueva] = clase_nueva;
 	return ++clase_nueva;
 }
 
 
-void clases(int N, int red[])
+int hoshen(int *red, int N)
 {
-	int clases[N*N/2]; // la maxima cantidad de clases se da para el caso "tablero de ajedrez"
+	int hoshen[N*N/2]; // la maxima cantidad de clases se da para el caso "tablero de ajedrez"
 	int i, j;
 	int clase_nueva = 2;
 	for (i=0; i<N*N/2; i++){ // inicializa vector de clasess
-		clases[i] = 0;
+		hoshen[i] = 0;
 	}
 
 	// Recorre la red y etiqueta clusters
@@ -83,58 +105,58 @@ void clases(int N, int red[])
 
 			if (red[elemento_actual]==1){ // si el elemento seleccionado esta ocupado
 				if (i==0 && j==0){ //primer elemento de la red
-					clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
+					clase_nueva = actualizar(red, hoshen, elemento_actual, clase_nueva);
 				}
 
 				else if (j==0){// primera columna, solo vecinos arriba
 					if (red[elemento_de_arriba]==0){
-						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
+						clase_nueva = actualizar(red, hoshen, elemento_actual, clase_nueva);
 					}
 					else if (red[elemento_de_arriba]!=0){
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
+						red[elemento_actual] = clase_de_posicion(hoshen, red[elemento_de_arriba]);
 					}
 				}
 
 				else if (i==0){ //primera fila
 					if (red[elemento_de_la_izquierda]==0){
-						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
+						clase_nueva = actualizar(red, hoshen, elemento_actual, clase_nueva);
 					}
 
 					else if (red[elemento_de_la_izquierda]!=0){
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						red[elemento_actual] = clase_de_posicion(hoshen, red[elemento_de_la_izquierda]);
 					}
 				}
 
 				else { //bulk de la red
 					if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]==0){ // caso trivial, vecinos nulos
-						clase_nueva = generar_clase_nueva(red, clases, elemento_actual, clase_nueva);
+						clase_nueva = actualizar(red, hoshen, elemento_actual, clase_nueva);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]==0){ // caso simple, vecino a la izquierda
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
+						red[elemento_actual] = clase_de_posicion(hoshen, red[elemento_de_arriba]);
 					}
 
 					else if (red[elemento_de_arriba]==0 && red[elemento_de_la_izquierda]!=0){ //caso simple, vecino arriba
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						red[elemento_actual] = clase_de_posicion(hoshen, red[elemento_de_la_izquierda]);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]==red[elemento_de_la_izquierda]){
-						red[elemento_actual] = clase_de_posicion(clases, red[elemento_de_arriba]);
+						red[elemento_actual] = clase_de_posicion(hoshen, red[elemento_de_arriba]);
 					}
 
 					else if (red[elemento_de_arriba]!=0 && red[elemento_de_la_izquierda]!=0 && red[elemento_de_arriba]!=red[elemento_de_la_izquierda]){ //caso complicado, conficto de etiquetas
-						int clase_de_arriba = clase_de_posicion(clases, red[elemento_de_arriba]);
+						int clase_de_arriba = clase_de_posicion(hoshen, red[elemento_de_arriba]);
 						// Aca estaba haciendo mal la cuenta del elemento de la izquierda
-						int clase_de_izquierda = clase_de_posicion(clases, red[elemento_de_la_izquierda]);
+						int clase_de_izquierda = clase_de_posicion(hoshen, red[elemento_de_la_izquierda]);
 
 						if (clase_de_arriba<clase_de_izquierda){
 							red[elemento_actual] = clase_de_arriba;
-							clases[clase_de_izquierda] = -clase_de_arriba;
+							hoshen[clase_de_izquierda] = -clase_de_arriba;
 						}
 
 						else if (clase_de_izquierda<clase_de_arriba){
 							red[elemento_actual] = clase_de_izquierda;
-							clases[clase_de_arriba] = -clase_de_izquierda;
+							hoshen[clase_de_arriba] = -clase_de_izquierda;
 						}
 
 						else{
@@ -148,9 +170,11 @@ void clases(int N, int red[])
 
 	//re-etiquetado corrige etiquetas falsas
 	for (i = 0 ; i < N*N ; i++) {
-		red[i] = clase_de_posicion(clases, red[i]);
+		red[i] = clase_de_posicion(hoshen, red[i]);
 	}
+return 0;
 }
+
 
 bool percola(int N, int red[]) {
 	int *primera_fila = &red[0];
@@ -175,9 +199,9 @@ bool percola(int N, int red[]) {
 // genera un array contando cuantas veces aparece cada etiqueta (la entrada i es
 // la cantidad de elementos con la etiqueta i)
 void tags(int N, int *red, int *tag){
-	
+
 	int i;
-	
+
 	for (i=0; i<N*N; i++){
 		tag[i] = 0;
 	}
@@ -207,7 +231,7 @@ void ns(int N, int *red, int *tag, int *tamanos){
 		}
 	}
 }
-/*
+
 void print_ns(int N, int red[]){
 
 	int tag[N*N]; //genera el array de tamaños de etiquetas
@@ -222,13 +246,13 @@ void print_ns(int N, int red[]){
 		if (tamanos[i]!=0){
 		printf("La cantidad de clusters de tamaño %i es %i \n", i, tamanos[i]);
 		}
-	} 
-}*/
+	}
+}
 
 // Calcula la fuerza del cluster percolante P_oo, a partir de la red y del
 // array con los tamaños de las etiquetas
 float fuerza(int N, int red[], int tag[]){
-	if (percola(N, red)){ // repite lo de la funcion percola 
+	if (percola(N, red)){ // repite lo de la funcion percola
 		float P;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
@@ -251,7 +275,7 @@ float fuerza(int N, int red[], int tag[]){
 }
 
 int masa(int N, int red[], int tag[]){
-	if (percola(N, red)){ // repite lo de la funcion percola 
+	if (percola(N, red)){ // repite lo de la funcion percola
 		int M;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
@@ -272,27 +296,3 @@ int masa(int N, int red[], int tag[]){
 	}
 
 }
-
-
-	// estimo p_c como el valor de p para el cual la red percola al menos la mitad de veces
-	
-/*void calcular_p_c(int num_iteraciones, int red[]){	
-	float i;
-	int j;
-	float percolo[num_iteraciones];
-	float proba;
-	for (j = 0; j< num_iteraciones; j++){		
-		for (i = 0; i<100; i++){
-			proba = i/100;
-			init_red(n, red, proba);		
-			clases(n, red);
-			if (percola(n, red)){
-			percolo[j] = proba;  
-			break; 
-			} 
-		}  
-	printf("percolo para el valor de proba = %f", percolo[j]);	
-	printf("\n");		
-	}
-//return p_c
-}*/
