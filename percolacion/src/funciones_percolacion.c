@@ -16,7 +16,7 @@ bool percola(int N, int red[]);
 void tags(int N, int red[], int tag[]);
 void ns(int N, int red[],int tag[], int tamanos[]);
 void print_ns(int N, int red[]);
-void calcular_p_c(int num_iteraciones, int red[]);
+float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision);
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
 float fuerza(int N, int red[], int tag[]);
 int masa(int N, int red[], int tag[]);
@@ -336,14 +336,14 @@ return p_c;
 
 
 
-float calcular_p_c_b(int num_iteraciones, int red[]){
+float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision){
 	float i;
 	int j;
 	float percolo[num_iteraciones];
 	float p;
-	for (j = 0; j< num_iteraciones; j++){
-		for (i = 0; i<100; i++){
-			p = i/100;
+	for (j = 0; j < num_iteraciones; j++){
+		for (i = 0; i<n_precision; i++){
+			p = i/n_precision;
 			llenar(red, n, p);
 			hoshen(red, n);
 			if (percola(n, red)){
@@ -351,8 +351,6 @@ float calcular_p_c_b(int num_iteraciones, int red[]){
 			break;
 			}
 		}
-	printf("percolo para el valor de proba = %f", percolo[j]);
-	printf("\n");
 	}
-return p_c
+return p;
 }

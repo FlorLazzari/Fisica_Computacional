@@ -11,13 +11,18 @@ int main()
 	int red[n*n];
 	float p_c;
 	int n_precision;
-	int n_promediar;
-	n_promediar = 100;
+	int n_iteraciones_a;
+	n_iteraciones_a = 100;
 	n_precision = 100;
-  p_c = calcular_p_c_a(red, n, n_precision, n_promediar);
+  p_c = calcular_p_c_a(red, n, n_precision, n_iteraciones_a);
 
-	printf("la probabilidad critica es %f\n", p_c);
+	printf("Probabilidad critica con el metodo a) es %f\n", p_c);
 
+  int n_iteraciones_b;
+	int n_precision_b;
+  n_iteraciones_b = 100;
+	n_precision_b = 100;
+	calcular_p_c_b(red, n, n_iteraciones_b, n_precision_b);
 	return 0;
 }
 
