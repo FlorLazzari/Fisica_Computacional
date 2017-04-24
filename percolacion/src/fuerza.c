@@ -21,8 +21,8 @@ int main(){
 			//print_red(n, red);		
 			tags(L, red, tag); //obtengo tamaños de los clusters
 
-			if (percola(L, red)){
-				printf("La fuerza del cluster percolante para L=%i, p = %.2f es %i \n", L, p, fuerza(L, red, tag));
+			if (percola(L, red)){ //calcula la P_oo
+				printf("La fuerza del cluster percolante para L=%i, p = %.2f es %.3f \n", L, p, fuerza(L, red, tag));
 			}
 
 		}
