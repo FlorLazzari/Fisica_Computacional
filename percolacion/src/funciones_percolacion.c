@@ -11,6 +11,7 @@ int tags(int N, int red[], int tag[]);
 //void print_ns(int N, int red[]);
 //void calcular_p_c(int num_iteraciones, int red[]);
 float fuerza(int N, int red[], int tag[]);
+int masa(int N, int red[], int tag[]);
 
 void init_red(int N, int red[], float p){
 	int i;
@@ -245,6 +246,29 @@ float fuerza(int N, int red[], int tag[]){
 			}
 		}
 		return P/(N*N);
+	}
+
+}
+
+int masa(int N, int red[], int tag[]){
+	if (percola(N, red)){ // repite lo de la funcion percola 
+		int M;
+		int *primera_fila = &red[0];
+		int *ultima_fila = &red[N*(N - 1)];
+
+		int indice_primera_fila, indice_ultima_fila;
+
+		for (indice_primera_fila = 0; indice_primera_fila < N; indice_primera_fila++) {
+			int elemento_primera_fila = primera_fila[indice_primera_fila];
+			for (indice_ultima_fila = 0; indice_ultima_fila < N; indice_ultima_fila++) {
+				int elemento_ultima_fila = ultima_fila[indice_ultima_fila];
+
+				if (elemento_primera_fila == elemento_ultima_fila && elemento_ultima_fila != 0) {
+					M = tag[elemento_ultima_fila]; //mira el tamaño de la etiqueta que percola
+				}
+			}
+		}
+		return M;
 	}
 
 }

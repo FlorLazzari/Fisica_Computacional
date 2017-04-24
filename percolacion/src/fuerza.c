@@ -6,7 +6,8 @@
 int main(){
 	int L;
 	float p;
-
+	srand(time(NULL));
+	
 	for (L=4; L<256; L = L*2){ // itero para cada tamaño
 
 		printf("\n ~~~~~~~~ L = %i ~~~~~~~~\n", L);
