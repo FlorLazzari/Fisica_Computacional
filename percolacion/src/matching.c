@@ -13,13 +13,13 @@ int main(){
 		int L = 6; //cambiar entre 6 y 128
 		int red[L*L];
 		int tag[L*L];
-		int n_s[L*L]; 
+		int n_s[L*L];
 		srand(time(NULL));
 
 
 		// inicializa los arrays de la red, las etiquetas y los tamaños
-		init_red(L, red, p);
-		clases(L, red);
+		llenar(red, L, p);
+		hoshen(red, L);
 		tags(L, red, tag);
 		ns(L, red, tag, n_s);
 

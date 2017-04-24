@@ -7,7 +7,7 @@ int main(){
 	int L;
 	float p;
 	srand(time(NULL));
-	
+
 	for (L=4; L<256; L = L*2){ // itero para cada tamaño
 
 		printf("\n ~~~~~~~~ L = %i ~~~~~~~~\n", L);
@@ -16,10 +16,10 @@ int main(){
 			int red[L*L];
 			int tag[L*L];
 
-			init_red(L, red, p); //inicializo red
-			//print_red(n, red);			
-			clases(L,red); //hago HK en la red
-			//print_red(n, red);		
+			llenar(red, L, p); //inicializo red
+			//print_red(n, red);
+			hoshen(red, L); //hago HK en la red
+			//print_red(n, red);
 			tags(L, red, tag); //obtengo tamaños de los clusters
 
 			if (percola(L, red)){ //calcula la P_oo

@@ -13,17 +13,17 @@ int main(){
 			int red[L*L];
 			int tag[L*L];
 
-			init_red(L, red, p_c); //inicializo red
-			//print_red(n, red);			
-			clases(L,red); //hago HK en la red
-			//print_red(n, red);		
+			llenar(red, L, p_c); //inicializo red
+			//print_red(n, red);
+			hoshen(red, L); //hago HK en la red
+			//print_red(n, red);
 			tags(L, red, tag); //obtengo tamaños de los clusters
 
 			if (percola(L, red)){ //calcula la Masa
 				printf("La Masa del cluster percolante para L=%i es %i \n", L, masa(L, red, tag));
 			}
 
-		
+
 	}
 
 
