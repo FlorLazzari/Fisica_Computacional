@@ -354,3 +354,6 @@ float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision){
 	}
 return p;
 }
+
+
+// pablo me dijo que esta ultima forma estaba mal.. como habria que pensarlo?
