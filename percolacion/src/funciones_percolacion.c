@@ -10,7 +10,7 @@ int tags(int N, int red[], int tag[]);
 //int ns(int N, int red[],int tag[], int tamanos[]);
 //void print_ns(int N, int red[]);
 //void calcular_p_c(int num_iteraciones, int red[]);
-int fuerza(int N, int red[], int tag[]);
+float fuerza(int N, int red[], int tag[]);
 
 void init_red(int N, int red[], float p){
 	int i;
@@ -226,9 +226,9 @@ void print_ns(int N, int red[]){
 
 // Calcula la fuerza del cluster percolante P_oo, a partir de la red y del
 // array con los tamaños de las etiquetas
-int fuerza(int N, int red[], int tag[]){
+float fuerza(int N, int red[], int tag[]){
 	if (percola(N, red)){ // repite lo de la funcion percola 
-		int P;
+		float P;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
 
@@ -244,7 +244,7 @@ int fuerza(int N, int red[], int tag[]){
 				}
 			}
 		}
-		return P;
+		return P/(N*N);
 	}
 
 }
