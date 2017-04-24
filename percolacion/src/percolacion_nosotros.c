@@ -5,6 +5,8 @@
 #define n 10
 // p ya no es mas una constante, necesito variarla
 
+
+// lo que tenemos:
 void init_red(int N, int red[], float p);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
@@ -15,6 +17,16 @@ void print_ns(int N, int red[]);
 void calcular_p_c(int num_iteraciones, int red[]);
 float fuerza(int N, int red[], int tag[]);
 
+// lo que nos deberia quedar:
+void  llenar(int *red,int n,float prob);
+int   hoshen(int *red,int n);
+int   actualizar(int *red,int *clase,int s,int frag);
+void  etiqueta_falsa(int *red,int *clase,int s1,int s2);
+void  corregir_etiqueta(int *red,int *clase,int n);
+int   percola(int *red,int n);
+
+
+
 int main()
 {
 	int red[n*n];
@@ -23,7 +35,7 @@ int main()
 	srand(time(NULL));
 	calcular_p_c(15, red);
 	// no hace falta devolver el puntero ya que la funcion no lo cambia
-	init_red(n, red, 0.5);
+	llenar(red, n, 0.5);
 	print_red(n, red);
 	// idem
 	clases(n,red);
@@ -32,21 +44,21 @@ int main()
 	printf("%s\n", percola(n, red) ? "percola" : "no percola");
 
 	printf("\n");
-	tags(n, red, tag); 
+	tags(n, red, tag);
 	//ns(n, red, tag, tamanos);
 	if (percola(n, red)){
 		printf("La fuerza del cluster percolante es %.3f \n", fuerza(n, red, tag) );
 	}
 
 	print_ns(n, red);
-	
+
 
 
 	return 0;
 }
 
 
-void init_red(int N, int red[], float p){
+void llenar(int N, int red[], float prob){
 	int i;
 	float r;
 
@@ -55,7 +67,7 @@ void init_red(int N, int red[], float p){
 		r = rand()%100;
 		r = r/100;
 
-		if (r<=p){
+		if (r<=prob){
 			red[i] = 1;
 				}
 		else{
@@ -208,9 +220,9 @@ bool percola(int N, int red[]) {
 // genera un array contando cuantas veces aparece cada etiqueta (la entrada i es
 // la cantidad de elementos con la etiqueta i)
 void tags(int N, int *red, int *tag){
-	
+
 	int i;
-	
+
 	for (i=0; i<N*N; i++){
 		tag[i] = 0;
 	}
@@ -255,13 +267,13 @@ void print_ns(int N, int red[]){
 		if (tamanos[i]!=0){
 		printf("La cantidad de clusters de tamaño %i es %i \n", i, tamanos[i]);
 		}
-	} 
+	}
 }
 
 // Calcula la fuerza del cluster percolante P_oo, a partir de la red y del
 // array con los tamaños de las etiquetas
 float fuerza(int N, int red[], int tag[]){
-	if (percola(N, red)){ // repite lo de la funcion percola 
+	if (percola(N, red)){ // repite lo de la funcion percola
 		float P;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
@@ -285,27 +297,24 @@ float fuerza(int N, int red[], int tag[]){
 
 
 	// estimo p_c como el valor de p para el cual la red percola al menos la mitad de veces
-	
-void calcular_p_c(int num_iteraciones, int red[]){	
+
+void calcular_p_c(int num_iteraciones, int red[]){
 	float i;
 	int j;
 	float percolo[num_iteraciones];
-	float proba;
-	for (j = 0; j< num_iteraciones; j++){		
+	float p;
+	for (j = 0; j< num_iteraciones; j++){
 		for (i = 0; i<100; i++){
-			proba = i/100;
-			init_red(n, red, proba);		
+			p = i/100;
+			llenar(red, n, p);
 			clases(n, red);
 			if (percola(n, red)){
-			percolo[j] = proba;  
-			break; 
-			} 
-		}  
-	printf("percolo para el valor de proba = %f", percolo[j]);	
-	printf("\n");		
+			percolo[j] = p;
+			break;
+			}
+		}
+	printf("percolo para el valor de proba = %f", percolo[j]);
+	printf("\n");
 	}
 //return p_c
 }
-
-
-
