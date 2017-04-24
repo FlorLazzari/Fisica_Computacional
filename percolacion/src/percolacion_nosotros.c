@@ -9,8 +9,8 @@ void init_red(int N, int red[], float p);
 void print_red(int N, int red[]);
 void clases(int N, int red[]);
 bool percola(int N, int red[]);
-int tags(int N, int red[], int tag[]);
-int ns(int N, int red[],int tag[], int tamanos[]);
+void tags(int N, int red[], int tag[]);
+void ns(int N, int red[],int tag[], int tamanos[]);
 void print_ns(int N, int red[]);
 void calcular_p_c(int num_iteraciones, int red[]);
 float fuerza(int N, int red[], int tag[]);
@@ -207,7 +207,7 @@ bool percola(int N, int red[]) {
 
 // genera un array contando cuantas veces aparece cada etiqueta (la entrada i es
 // la cantidad de elementos con la etiqueta i)
-int tags(int N, int *red, int *tag){
+void tags(int N, int *red, int *tag){
 	
 	int i;
 	
@@ -224,7 +224,7 @@ int tags(int N, int *red, int *tag){
 
 // genera un array con la cantidad de clusters de un dado tamaño
 // tamanos[i] es la cantidad de clusters de tamaño i
-int ns(int N, int *red, int *tag, int *tamanos){
+void ns(int N, int *red, int *tag, int *tamanos){
 
 	int i;
 
