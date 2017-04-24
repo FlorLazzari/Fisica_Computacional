@@ -1,59 +1,28 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
+#include "funciones_percolacion.c"
+
+
 int main()
 {
+	int n;
+	n = 5;
 	int red[n*n];
-	int tag[n*n];
-	int tamanos[n*n];
-	srand(time(NULL));
-	calcular_p_c(15, red);
-	// no hace falta devolver el puntero ya que la funcion no lo cambia
-	llenar(red, n, 0.5);
-	print_red(n, red);
-	// idem
-	hoshen(red, n);
-	print_red(n, red);
+	float p_c;
+	int n_precision;
+	int n_promediar;
+	n_promediar = 100;
+	n_precision = 100;
+  p_c = calcular_p_c_a(red, n, n_precision, n_promediar);
 
-	printf("%s\n", percola(n, red) ? "percola" : "no percola");
-
-	printf("\n");
-	tags(n, red, tag);
-	//ns(n, red, tag, tamanos);
-	if (percola(n, red)){
-		printf("La fuerza del cluster percolante es %.3f \n", fuerza(n, red, tag) );
-	}
-
-	print_ns(n, red);
-
-
+	printf("la probabilidad critica es %f\n", p_c);
 
 	return 0;
 }
 
 
+// ojo! para compilar debo escribir:
+// gcc src/estimar_p_c.c -lm -o bin/pirulo
 
-
-
-
-
-
-	// estimo p_c como el valor de p para el cual la red percola al menos la mitad de veces
-
-void calcular_p_c(int num_iteraciones, int red[]){
-	float i;
-	int j;
-	float percolo[num_iteraciones];
-	float p;
-	for (j = 0; j< num_iteraciones; j++){
-		for (i = 0; i<100; i++){
-			p = i/100;
-			llenar(red, n, p);
-			hoshen(red, n);
-			if (percola(n, red)){
-			percolo[j] = p;
-			break;
-			}
-		}
-	printf("percolo para el valor de proba = %f", percolo[j]);
-	printf("\n");
-	}
-//return p_c
-}
+// esto lo hago para solucionar el problema de calcular la potencia

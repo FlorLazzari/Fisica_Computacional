@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
+#include <math.h>
 
-#define n 10
+//#define n 10
 // p ya no es mas una constante, necesito variarla
 
 
@@ -15,7 +16,8 @@ bool percola(int N, int red[]);
 void tags(int N, int red[], int tag[]);
 void ns(int N, int red[],int tag[], int tamanos[]);
 void print_ns(int N, int red[]);
-// void calcular_p_c(int num_iteraciones, int red[]); esto lo puse en otro archivo
+void calcular_p_c(int num_iteraciones, int red[]);
+float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
 float fuerza(int N, int red[], int tag[]);
 int masa(int N, int red[], int tag[]);
 
@@ -295,4 +297,62 @@ int masa(int N, int red[], int tag[]){
 		return M;
 	}
 
+}
+
+
+
+
+
+float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
+	float p_c;
+	float p;
+	p = 0.5;
+	double i;
+	float potencia;
+	int j;
+	float suma[j+1];
+	suma[0] = 0;
+	for (j=1; j < n_promediar; j++){
+		srand(time(NULL));
+		for (i=1; i < n_precision; i++){
+			llenar(red, n, p);
+			hoshen(red, n);
+			potencia = pow(2, i);
+			if (percola(n, red)){
+				p = p - (1.0/ potencia);
+			}
+			else{
+				p = p + (1.0/ potencia);
+			}
+		}
+	suma[j] = p + suma[j-1];
+	p_c = suma[j] / j;
+	}
+return p_c;
+}
+
+
+
+
+
+
+float calcular_p_c_b(int num_iteraciones, int red[]){
+	float i;
+	int j;
+	float percolo[num_iteraciones];
+	float p;
+	for (j = 0; j< num_iteraciones; j++){
+		for (i = 0; i<100; i++){
+			p = i/100;
+			llenar(red, n, p);
+			hoshen(red, n);
+			if (percola(n, red)){
+			percolo[j] = p;
+			break;
+			}
+		}
+	printf("percolo para el valor de proba = %f", percolo[j]);
+	printf("\n");
+	}
+return p_c
 }
