@@ -1,0 +1,13 @@
+P1: refinar el a), hacer todo el resto.
+
+P2: promediar entre semillas
+
+P3: promediar entre semillas, hacer el ajuste
+
+P4: todo
+
+P5: todo
+
+P6: promediar entre semillas, hacer los ajustes, (normalizar ns?)
+
+P7: todo
