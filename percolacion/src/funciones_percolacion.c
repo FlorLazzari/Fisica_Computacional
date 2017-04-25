@@ -16,7 +16,7 @@ bool percola(int N, int red[]);
 void tags(int N, int red[], int tag[]);
 void ns(int N, int red[],int tag[], float tamanos[]);
 void print_ns(int N, int red[]);
-float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision);
+float calcular_p_c_b(int red[], int n, float p, int num_iteraciones);
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
 float fuerza(int N, int red[], int tag[]);
 int masa(int N, int red[]);
@@ -355,23 +355,26 @@ return p_c;
 
 
 
-float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision){
-	float i;
+float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
+	int i;
+	int num_promediado = 100;
+	float F[num_promediado];
+	float F_prom;
 	int j;
-	float percolo[num_iteraciones];
-	float p;
-	for (j = 0; j < num_iteraciones; j++){
-		for (i = 0; i<n_precision; i++){
-			p = i/n_precision;
-			llenar(red, n, p);
-			hoshen(red, n);
-			if (percola(n, red)){
-			percolo[j] = p;
-			break;
-			}
+	for (j = 0; j < num_promediado; j++){
+		
+		for (i = 0; i < num_iteraciones; i++){
+			
+			llenar(red, L, p);
+			hoshen(red, L);
+			if (percola(L, red)){
+			F[j]++;
+			}	
 		}
+		F[j] = F[j]/num_iteraciones;
 	}
-return p;
+	F_prom = promedio(num_promediado, F);
+	return F_prom;
 }
 
 
@@ -381,7 +384,8 @@ float promedio(int n, float array[]){
 	for (i = 0; i < n; i++){
 		prom = prom + array[i];
 	}
-return prom/n;
+	printf("%f es la suma\n", prom);
+return prom/((float)n);
 }
 
 

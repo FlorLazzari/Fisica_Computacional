@@ -6,27 +6,23 @@
 
 int main()
 {
-	int n = 5;
-	int red[n*n];
+	int L = 5;
+	int red[L*L];
 	float p_c;
-	int n_precision = 10;
-	int n_iteraciones_a = 10;
-	p_c = calcular_p_c_a(red, n, n_precision, n_iteraciones_a);
+	int n_precision = 100;
+	int n_iteraciones_a = 100;
+	p_c = calcular_p_c_a(red, L, n_precision, n_iteraciones_a);
 
 	printf("Probabilidad critica con el metodo a) es %f", p_c);
 	printf("\n");
 
-//  	int n_iteraciones_b = 100;
-//	int n_precision_b = 100;
-//	calcular_p_c_b(red, n, n_iteraciones_b, n_precision_b);
+
+	int n_iteraciones_b = 100;
+	float p=0.5;
+	float F;
+	F = calcular_p_c_b(red, L, p, n_iteraciones_b);
+	printf("La probabilidad de aparicion del cluster para p=%.2f es %f\n", p, F);
 	return 0;
 }
-
-
-// para compilar:
-// gcc src/estimar_p_c.c -lm -o bin/pirulo
-
-// esto lo hago para solucionar el problema de calcular la potencia
-
 
 // por alguna razon esto cuelga en un momento..
