@@ -17,8 +17,8 @@ int main(){
 	fprintf(fdat, "L    M\n");
 	
 
-	for (L; L<128; L=L*2){ // itero para cada tamaño
-		// FLASHEA A PARTIR DEL 101
+	for (L; L<512; L=L*2){ // itero para cada tamaño
+		// FLASHEA A PARTIR DEL 101 y el error parece estar en el promedio
 
 		int red[L*L];
 		//int tag[L*L];
@@ -40,14 +40,16 @@ int main(){
 				if(percola(L, red)){ //calcula la Masa
 					m = masa(L, red);
 					array[i] = (float)m;	
-					if (i % 10 == 0){
-						printf("La Masa del cluster percolante para L=%i es %i \n", L, m );
-					}
+					//if (i % 10 == 0){
+					//	printf("La Masa del cluster percolante para L=%i es %i \n", L, m );
+					//}
 					break;
 				}
 				else{
 					continue;
 				}
+				
+
 			}
 			//printf("termina el loop\n");
 			
