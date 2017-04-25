@@ -13,14 +13,13 @@ int main(){
  	int n_promediar=100;
 	float m2promedio=0;
 	float m2array[n_promediar];
+	srand(time(NULL)); // no hace falta cambiar la semilla adentro del loop!!	
 	for (p=0.1; p<1; p = p + 0.1){ // calcula el m2 para cada p
 		int L = 6; //cambiar entre 6 y 128
 		int red[L*L];
 		int tag[L*L];
 		float n_s[L*L];
 		for (j=1; j < n_promediar; j++){
-			srand(time(NULL));
-			
 			// inicializa los arrays de la red, las etiquetas y los tamaños
 			llenar(red, L, p);
 			hoshen(red, L);
@@ -37,7 +36,6 @@ int main(){
 			if(j/10==0){
 				printf("el prom es %f \n", m2array[j]);
 			}		
-		sleep(1);
 		}
 	m2promedio = promedio(n_promediar, m2array);	
 	printf("El segundo momento para L=%i, p=%.2f es %.2f \n", L, p, m2promedio);

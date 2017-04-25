@@ -311,14 +311,14 @@ float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
 	double i;
 	float potencia;
 	int j;
-	float suma[j+1];
-	suma[0] = 0;
-	for (j=1; j < n_promediar; j++){
+	float suma;
+	for (j=0; j < n_promediar; j++){
+		potencia = 1;
 		srand(time(NULL));
-		for (i=1; i < n_precision; i++){
+		for (i=0; i < n_precision; i++){
 			llenar(red, n, p);
 			hoshen(red, n);
-			potencia = pow(2, i);
+			potencia = potencia * 2;
 			if (percola(n, red)){
 				p = p - (1.0/ potencia);
 			}
@@ -326,9 +326,13 @@ float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
 				p = p + (1.0/ potencia);
 			}
 		}
-	suma[j] = p + suma[j-1];
-	p_c = suma[j] / j;
+		suma += p;
+		printf("p_c = %f \n", p);
 	}
+	p_c = suma / n_promediar;
+	printf("promedio p_c = %f \n", p_c);
+	
+
 return p_c;
 }
 
