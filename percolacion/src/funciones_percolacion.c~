@@ -326,8 +326,8 @@ float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
 				p = p + (1.0/ potencia);
 			}
 		}
-		suma[j] = p + suma[j-1];
-		p_c = suma[j] / j;
+	suma[j] = p + suma[j-1];
+	p_c = suma[j] / j;
 	}
 return p_c;
 }

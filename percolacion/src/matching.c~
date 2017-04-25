@@ -30,7 +30,7 @@ int main(){
 			int i;
 			int m2 = 0;
 
-				for (i=0; i<L*L; i++){ //ejecuta la suma del segundo momento de n_s	
+				for (i=1; i<L*L; i++){ //ejecuta la suma del segundo momento de n_s	
 					m2 = m2 + n_s[i]*i*i;
 				}
 			m2array[j] = m2;
