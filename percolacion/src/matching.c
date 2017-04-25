@@ -46,7 +46,7 @@ int main(){
 		}
 		m2promedio = promedio(n_promediar, m2array);
 		printf("El segundo momento para L=%i, p=%.2f es %.2f \n", L, p, m2promedio);
-		fprintf(fdat, "%.3f	%.3f\n",p, m2promedio);
+		fprintf(fdat, "%.3g	%.3g\n",p, m2promedio);
 	}/*
 int n =10;
 float array[n] = {4, 4, 4, 4, 5, 5, 5, 5, 5,	5};

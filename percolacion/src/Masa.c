@@ -12,9 +12,13 @@ int main(){
 	float array[n_iteraciones];
 	int m;
 
+	FILE *fdat;
+	fdat = fopen("datos masa.tsv", "w");
+	fprintf(fdat, "L    M\n");
 	
 
-	for (L; L<512; L = L*2){ // itero para cada tamaño
+	for (L; L<128; L=L*2){ // itero para cada tamaño
+		// FLASHEA A PARTIR DEL 101
 
 		int red[L*L];
 		//int tag[L*L];
@@ -51,8 +55,12 @@ int main(){
 
 	m_prom = promedio(L, array);			
 	printf("la masa promedio para L = %i es %f \n", L, m_prom);
+	fprintf(fdat, "%i    %3.3g \n",L, m_prom);
 
 	}	
+
+fflush(fdat);
+fclose(fdat);
 
 return 0;
 }
