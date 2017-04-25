@@ -2,7 +2,7 @@ P1: refinar el a), hacer todo el resto.
 
 P2: (promediar entre semillas)
 
-P3: (promediar entre semillas), hacer el ajuste
+P3: (mirar el overflow), hacer el ajuste
 
 P4: todo
 
