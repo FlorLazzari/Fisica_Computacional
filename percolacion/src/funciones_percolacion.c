@@ -19,7 +19,7 @@ void print_ns(int N, int red[]);
 float calcular_p_c_b(int red[], int n, int num_iteraciones, int n_precision);
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
 float fuerza(int N, int red[], int tag[]);
-int masa(int N, int red[], int tag[]);
+int masa(int N, int red[]);
 float promedio(int n, float array[]);
 
 // lo que voy cambiando:
@@ -35,7 +35,19 @@ int   actualizar(int *red,int *hoshen,int elemento_actual,int clase_nueva);
 //void  corregir_etiqueta(int *red,int *clase,int n);
 //int   percola(int *red,int n);
 
-
+// int main(){
+// 	float p = 0.5;
+// 	int L = 10;
+// 	int red[L*L];
+//
+// 	llenar(red, L, p);
+// 	hoshen(red, L);
+// 	print_red(L, red);
+// 	print_ns(L, red);
+//
+// 	return 0;
+//
+// }
 
 
 void llenar(int *red, int N, float prob){
@@ -230,7 +242,7 @@ void ns(int N, int *red, int *tag, float *tamanos){
 
 	for (i=0; i<N*N; i++){ // cuando la etiqueta i aparece n veces, se suma uno a tamanos[n]
 		if (tag[i]!=0){
-		(tamanos[tag[i]]++)/(N*N);
+		tamanos[tag[i]] = tamanos[tag[i]] +  (float)1/(N*N);
 		}
 	}
 }
@@ -247,7 +259,7 @@ void print_ns(int N, int red[]){
 	printf("\n");
 	for (i=1; i<N*N; i++){
 		if (tamanos[i]!=0){
-		printf("La cantidad de clusters de tamaño %i es %f \n", i, N*N*tamanos[i]);
+		printf("La cantidad de clusters de tamaño %i es %f \n", i, (N*N)*tamanos[i]);
 		}
 	}
 }
@@ -277,8 +289,10 @@ float fuerza(int N, int red[], int tag[]){
 
 }
 
-int masa(int N, int red[], int tag[]){
+int masa(int N, int red[]){
 	if (percola(N, red)){ // repite lo de la funcion percola
+		int tag[N*N];
+		tags(N, red, tag);
 		int M;
 		int *primera_fila = &red[0];
 		int *ultima_fila = &red[N*(N - 1)];
@@ -331,7 +345,7 @@ float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
 	}
 	p_c = suma / n_promediar;
 	printf("promedio p_c = %f \n", p_c);
-	
+
 
 return p_c;
 }
@@ -365,9 +379,9 @@ float promedio(int n, float array[]){
 	float prom = 0;
 	int i;
 	for (i = 0; i < n; i++){
-		prom = prom + array[i];			
-	}  
-return prom/n;	
+		prom = prom + array[i];
+	}
+return prom/n;
 }
 
 

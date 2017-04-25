@@ -13,8 +13,7 @@ int main(){
  	int n_promediar=100;
 	float m2promedio=0;
 	float m2array[n_promediar];
-	srand(time(NULL));
-			
+	srand(time(NULL)); // no hace falta cambiar la semilla adentro del loop!!	
 	for (p=0.1; p<1; p = p + 0.1){ // calcula el m2 para cada p
 		int L = 6; //cambiar entre 6 y 128
 		int red[L*L];
@@ -34,7 +33,7 @@ int main(){
 					m2 = m2 + n_s[i]*i*i;
 				}
 			m2array[j] = m2;
-			if(j/10==0){
+			if(j%10==0){
 				printf("el prom es %f \n", m2array[j]);
 			}		
 		}
