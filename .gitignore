@@ -35,5 +35,9 @@
 
 # Data files
 *.tsv
+*.csv
+
+#Autosaves?
+*~
 
 bin

@@ -18,7 +18,7 @@ void ns(int N, int red[],int tag[], float tamanos[]);
 void print_ns(int N, int red[]);
 float calcular_p_c_b(int red[], int n, float p, int num_iteraciones);
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
-float fuerza(int N, int red[], int tag[]);
+float fuerza(int N, int red[]);
 int masa(int N, int red[]);
 float promedio(int n, float array[]);
 
@@ -266,7 +266,9 @@ void print_ns(int N, int red[]){
 
 // Calcula la fuerza del cluster percolante P_oo, a partir de la red y del
 // array con los tamaños de las etiquetas
-float fuerza(int N, int red[], int tag[]){
+float fuerza(int N, int red[]){
+	int tag[N*N];
+	tags(N, red, tag);
 	if (percola(N, red)){ // repite lo de la funcion percola
 		float P;
 		int *primera_fila = &red[0];
@@ -354,13 +356,14 @@ return p_c;
 
 
 
-
+// el promediado anda bien (probado con Masa.c, esta parece ser la que divide de mas)
 float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	int i;
-	int num_promediado = 100;
+	int num_promediado = 10000;
 	float F[num_promediado];
 	float F_prom;
 	int j;
+	srand(time(NULL));
 	for (j = 0; j < num_promediado; j++){
 		
 		for (i = 0; i < num_iteraciones; i++){
@@ -377,7 +380,7 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	return F_prom;
 }
 
-
+// esta parece estar andando bien
 float promedio(int n, float array[]){
 	float prom = 0;
 	int i;
@@ -385,7 +388,7 @@ float promedio(int n, float array[]){
 		prom = prom + array[i];
 	}
 	printf("%f es la suma\n", prom);
-return prom/((float)n);
+return prom/(n);
 }
 
 

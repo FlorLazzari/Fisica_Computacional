@@ -17,11 +17,11 @@ int main()
 	printf("\n");
 
 
-	int n_iteraciones_b = 100;
-	float p=0.5;
+	int n_iteraciones_b = 10;
+	//float p;
 	float F;
-	F = calcular_p_c_b(red, L, p, n_iteraciones_b);
-	printf("La probabilidad de aparicion del cluster para p=%.2f es %f\n", p, F);
+	F = calcular_p_c_b(red, L, p_c, n_iteraciones_b);
+	printf("La probabilidad de aparicion del cluster para p=%.2f es %f\n", p_c, F);
 	return 0;
 }
 
