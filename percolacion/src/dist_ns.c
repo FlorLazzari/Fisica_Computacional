@@ -14,6 +14,11 @@ int main(){
 	int n_prom = 10;
 	srand(time(NULL));
 
+	FILE *fdat;
+	fdat = fopen("datos dist_ns.csv", "w");
+	fprintf(fdat, "L	p	s	n(s)\n");
+
+
 	for (L=4; L<256; L=L*2){
 
 		float array_ns[n_prom];
@@ -39,6 +44,8 @@ int main(){
 
 					n_s[s] = promedio(n_prom, array_ns);
 					printf("El n_s promediado es %f para s = %i \n", n_s[s], s);
+					fprintf(fdat, "%i,%3.3g,%i,%3.3g \n",L, p, s, n_s[s]);
+
 
 			}
 		}
