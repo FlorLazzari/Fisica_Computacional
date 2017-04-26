@@ -23,7 +23,6 @@ int main(){
 
 		float array_ns[n_prom];
 
-		int L = 4;
 		int red[L*L];
 		float n_s[L*L];
 		printf("\n ~~~~~~~~ L = %i ~~~~~~~~\n", L);
