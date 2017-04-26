@@ -1,13 +1,14 @@
-P1: refinar el a), hacer todo el resto.
+P1: a) hecho, b) en proceso, hacer todo el resto.
 
 P2: (promediar entre semillas)
 
-P3: (mirar el overflow), hacer el ajuste
+P3: Corre todo, ajuste preliminar da D = 1.98 (de verdad da 1.89), listo para tomar datos y redactar.
 
-P4: todo
+P4: todo (convendría hacer un programa que devuelva un .csv con el ns para cada p)
 
 P5: todo
 
-P6: tomar un rango, hacer los ajustes, 
+P6: Corre todo, tomar un rango y hacer los ajustes.
 
 P7: todo
+
