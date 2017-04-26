@@ -364,7 +364,7 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	for (j = 0; j < num_promediado; j++){
 		
 		for (i = 0; i < num_iteraciones; i++){
-			
+			F[j] = 0; //ESTA LINEA PARECE HABER ARREGLADO COSAS
 			llenar(red, L, p);
 			hoshen(red, L);
 			if (percola(L, red)){

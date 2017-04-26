@@ -17,7 +17,7 @@ int main(){
 	fprintf(fdat, "L    M\n");
 	
 
-	for (L; L<512; L=L*2){ // itero para cada tamaño
+	for (L; L<256; L=L*2){ // itero para cada tamaño
 		// FLASHEA A PARTIR DEL 101 y el error parece estar en el promedio
 
 		int red[L*L];
