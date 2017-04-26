@@ -18,7 +18,6 @@ int main(){
 	
 
 	for (L; L<256; L=L*2){ // itero para cada tamaño
-		// FLASHEA A PARTIR DEL 101 y el error parece estar en el promedio
 
 		int red[L*L];
 		//int tag[L*L];

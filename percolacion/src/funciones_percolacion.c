@@ -18,9 +18,11 @@ void ns(int N, int red[],int tag[], float tamanos[]);
 void print_ns(int N, int red[]);
 float calcular_p_c_b(int red[], int n, float p, int num_iteraciones);
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar);
+float calcular_p_c_b_sin(int red[], int L, float p, int num_iteraciones);
 float fuerza(int N, int red[]);
 int masa(int N, int red[]);
 float promedio(int n, float array[]);
+float stdev(int n, float array[]);
 
 // lo que voy cambiando:
 void  llenar(int *red,int N,float prob);
@@ -359,15 +361,16 @@ return p_c;
 // el promediado anda bien (probado con Masa.c, esta parece ser la que divide de mas)
 float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	int i;
-	int num_promediado = 10000;
+	int num_promediado = 50;
 	float F[num_promediado];
 	float F_prom;
 	int j;
 	srand(time(NULL));
 	for (j = 0; j < num_promediado; j++){
 		
+		F[j] = 0; //ESTA LINEA PARECE HABER ARREGLADO COSAS
+
 		for (i = 0; i < num_iteraciones; i++){
-			F[j] = 0; //ESTA LINEA PARECE HABER ARREGLADO COSAS
 			llenar(red, L, p);
 			hoshen(red, L);
 			if (percola(L, red)){
@@ -380,6 +383,29 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	return F_prom;
 }
 
+
+//esta de aca anda bien, lo que falla en la de arriba es el promediado
+float calcular_p_c_b_sin(int red[], int L, float p, int num_iteraciones){ 
+	int i;
+	float F = 0;
+	srand(time(NULL));
+		
+		for (i = 0; i < num_iteraciones; i++){
+ 
+			llenar(red, L, p);
+			hoshen(red, L);
+			if (percola(L, red)){
+			F++;
+			}	
+		}
+		F = F/num_iteraciones;
+	return F;
+}
+
+
+
+
+
 // esta parece estar andando bien
 float promedio(int n, float array[]){
 	float prom = 0;
@@ -387,11 +413,21 @@ float promedio(int n, float array[]){
 	for (i = 0; i < n; i++){
 		prom = prom + array[i];
 	}
-	printf("%f es la suma\n", prom);
+	//printf("%f es la suma\n", prom);
 return prom/(n);
 }
 
-
+float stdev(int n, float array[]){ //devuelve la sigma al cuadrado (dispersion)
+	float sigma = 0;
+	int i;
+	float arr2[n];
+	for (i = 0; i < n; ++i){
+	 	arr2[i] = 0;
+	 	arr2[i] = array[i]*array[i];
+	 } 
+	 sigma = promedio(n,arr2) - promedio(n, array)*promedio(n, array);
+return sigma;
+}
 
 
 
