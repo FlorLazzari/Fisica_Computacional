@@ -23,6 +23,8 @@ float fuerza(int N, int red[]);
 int masa(int N, int red[]);
 float promedio(int n, float array[]);
 float stdev(int n, float array[]);
+float ns_s(int L, int red[], int s);
+
 
 // lo que voy cambiando:
 void  llenar(int *red,int N,float prob);
@@ -249,13 +251,13 @@ void ns(int N, int *red, int *tag, float *tamanos){
 	}
 }
 
-float ns_s(int L, red, s){
+float ns_s(int L, int red[], int s){
 	float n_s;
 	int tag[L*L];
 	float tamanos[L*L];
 
 	tags(L, red, tag);
-	ns(L, red, tag, tamanos):
+	ns(L, red, tag, tamanos);
 
 	n_s = tamanos[s];
 
@@ -380,7 +382,7 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	int j;
 	srand(time(NULL));
 	for (j = 0; j < num_promediado; j++){
-		
+
 		F[j] = 0; //ESTA LINEA PARECE HABER ARREGLADO COSAS
 
 		for (i = 0; i < num_iteraciones; i++){
@@ -388,7 +390,7 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 			hoshen(red, L);
 			if (percola(L, red)){
 			F[j]++;
-			}	
+			}
 		}
 		F[j] = F[j]/num_iteraciones;
 	}
@@ -398,18 +400,18 @@ float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 
 
 //esta de aca anda bien, lo que falla en la de arriba es el promediado
-float calcular_p_c_b_sin(int red[], int L, float p, int num_iteraciones){ 
+float calcular_p_c_b_sin(int red[], int L, float p, int num_iteraciones){
 	int i;
 	float F = 0;
 	srand(time(NULL));
-		
+
 		for (i = 0; i < num_iteraciones; i++){
- 
+
 			llenar(red, L, p);
 			hoshen(red, L);
 			if (percola(L, red)){
 			F++;
-			}	
+			}
 		}
 		F = F/num_iteraciones;
 	return F;
@@ -437,7 +439,7 @@ float stdev(int n, float array[]){ //devuelve la sigma al cuadrado (dispersion)
 	for (i = 0; i < n; ++i){
 	 	arr2[i] = 0;
 	 	arr2[i] = array[i]*array[i];
-	 } 
+	 }
 	 sigma = promedio(n,arr2) - promedio(n, array)*promedio(n, array);
 return sigma;
 }
