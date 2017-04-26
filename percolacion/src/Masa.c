@@ -31,7 +31,8 @@ int main(){
 			//print_red(n, red);
 			//tags(L, red, tag); //obtengo tamaños de los clusters
 			//printf("Empieza el loop\n");
-			while (true){
+			bool juanito = true;
+			while (juanito){
 
 				llenar(red, L, p_c);
 				hoshen(red, L); 
@@ -42,11 +43,9 @@ int main(){
 					//if (i % 10 == 0){
 					//	printf("La Masa del cluster percolante para L=%i es %i \n", L, m );
 					//}
-					break;
+					juanito = false;
 				}
-				else{
-					continue;
-				}
+				
 				
 
 			}
