@@ -249,6 +249,19 @@ void ns(int N, int *red, int *tag, float *tamanos){
 	}
 }
 
+float ns_s(int L, red, s){
+	float n_s;
+	int tag[L*L];
+	float tamanos[L*L];
+
+	tags(L, red, tag);
+	ns(L, red, tag, tamanos):
+
+	n_s = tamanos[s];
+
+return n_s;
+}
+
 void print_ns(int N, int red[]){
 
 	int tag[N*N]; //genera el array de tamaños de etiquetas
