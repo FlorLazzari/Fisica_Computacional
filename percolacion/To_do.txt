@@ -1,6 +1,6 @@
-P1: a) hecho, b) casi listo, arreglar divisin de más, hacer todo el resto.
+P1: a) hecho, b) casi listo, arreglar división de más, hacer todo el resto.
 
-P2: (promediar entre semillas)
+P2: Corre todo, listo para redactar.
 
 P3: Corre todo, ajuste preliminar da D = 1.98 (de verdad da 1.89), listo para tomar datos y redactar.
 

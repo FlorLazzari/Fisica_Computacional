@@ -12,6 +12,10 @@ int main(){
 	float P[n_promediado];
 	float P_prom;
 
+	FILE *fdat;
+	fdat = fopen("datos fuerza.csv", "w");
+	fprintf(fdat, "L	p	P(p)\n");
+
 	for (L=4; L<256; L = L*2){ // itero para cada tamaño
 
 		printf("\n ~~~~~~~~ L = %i ~~~~~~~~\n", L);
@@ -32,7 +36,7 @@ int main(){
 			P_prom = promedio(n_promediado, P);
 			
 			printf("La fuerza del cluster percolante para L=%i, p = %.2f es %.3f \n", L, p, P_prom);
-
+			fprintf(fdat, "%i,%.2g,%.3g\n", L, p, P_prom);
 		}
 	}
 
