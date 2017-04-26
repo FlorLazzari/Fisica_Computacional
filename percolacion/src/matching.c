@@ -16,7 +16,7 @@ int main(){
 	srand(time(NULL)); // no hace falta cambiar la semilla adentro del loop!!
 
 	FILE *fdat;
-	fdat = fopen("datos matching.tsv", "w");
+	fdat = fopen("datos matching.csv", "w");
 	fprintf(fdat, "p	m2\n");
 
 	for (p=0.3; p<0.8; p = p + 0.01){ // calcula el m2 para cada p
@@ -46,7 +46,7 @@ int main(){
 		}
 		m2promedio = promedio(n_promediar, m2array);
 		printf("El segundo momento para L=%i, p=%.2f es %.2f \n", L, p, m2promedio);
-		fprintf(fdat, "%.3g	%.3g\n",p, m2promedio);
+		fprintf(fdat, "%.3g,%.3g\n",p, m2promedio);
 	}/*
 int n =10;
 float array[n] = {4, 4, 4, 4, 5, 5, 5, 5, 5,	5};

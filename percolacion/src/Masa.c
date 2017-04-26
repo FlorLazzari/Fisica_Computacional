@@ -13,7 +13,7 @@ int main(){
 	int m;
 
 	FILE *fdat;
-	fdat = fopen("datos masa.tsv", "w");
+	fdat = fopen("datos masa.csv", "w");
 	fprintf(fdat, "L    M\n");
 	
 
@@ -55,9 +55,9 @@ int main(){
 			
 		}		
 
-	m_prom = promedio(L, array);			
+	m_prom = promedio(n_iteraciones, array);			
 	printf("la masa promedio para L = %i es %f \n", L, m_prom);
-	fprintf(fdat, "%i    %3.3g \n",L, m_prom);
+	fprintf(fdat, "%i,%3.3g \n",L, m_prom);
 
 	}	
 

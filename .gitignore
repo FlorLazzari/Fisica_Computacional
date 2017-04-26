@@ -27,9 +27,13 @@
 *.i*86
 *.x86_64
 *.hex
+*.e
 
 # Debug files
 *.dSYM/
 *.su
+
+# Data files
+*.tsv
 
 bin
