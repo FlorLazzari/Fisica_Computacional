@@ -34,8 +34,8 @@
 *.su
 
 # Data files
-# *.tsv
-*.csv
+*.tsv
+#*.csv
 
 #Autosaves?
 *~
