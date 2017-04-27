@@ -8,6 +8,8 @@ Created on Thu Apr 27 15:33:37 2017
 import numpy as np
 import matplotlib.pyplot as plt
 
+# tener el archivo de datos en el mismo directorio!!
+
 datos = np.loadtxt("datos 1a_posta.csv", delimiter = ',', skiprows=1)
 
 pc = np.zeros((6,10)) # el primer índice corresponde a L, para cada valor hay 
@@ -21,6 +23,8 @@ pc_prom = np.mean(pc,1) # da el promedio de pc para cada L
 pc_stdv = np.std(pc,1)  # da la dispersion de pc para cada L
 
 L = np.array([4,8,16,32,64,128])
+
+
 
 plt.figure()
 plt.scatter(L, pc_prom, color = 'b', label = 'p_c')

@@ -8,7 +8,7 @@ int main()
 {
 	int L;
 	int n_trials_b = 100;
-	int rango_p = 100;
+	int rango_p = 30; // esto es 100 para todo el rango, 30 para el detalle
 	float p = 0;
 	float F[rango_p];
 	int i;
@@ -22,9 +22,10 @@ int main()
 		int red[L*L];
 
 		for (i = 0; i < rango_p; i++){
-			p = (float)i/rango_p;
+			//p = (float)i/(rango_p); // para todo el rango
+			p = 0.56 + 0.04*((float)i/(rango_p));
 			F[i] = calcular_p_c_b(red, L, p, n_trials_b);
-			printf("La probabilidad de aparicion del cluster para L=%i p=%.2f es %.4f\n", L, p, F[i]);
+			printf("La probabilidad de aparicion del cluster para L=%i p=%.3f es %.4f\n", L, p, F[i]);
 			fprintf(fdat, "%i,%3.3g,%3.3g \n",L, p, F[i]);
 		}
 
