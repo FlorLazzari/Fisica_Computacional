@@ -5,7 +5,7 @@
 
 int main(){
 	int L = 4;
-	float p_c = 0.6; // aca poner la que corresponda
+	float p_c = 0.58; // aca poner la que corresponda
 	srand(time(NULL));
 	int i;
 	int n_iteraciones = 100; 
@@ -17,7 +17,7 @@ int main(){
 	fprintf(fdat, "L    M\n");
 	
 
-	for (L; L<256; L=L*2){ // itero para cada tamaño
+	for (L; L<256; L++){ // itero para cada tamaño
 
 		int red[L*L];
 		//int tag[L*L];

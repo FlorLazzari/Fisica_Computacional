@@ -21,7 +21,7 @@ int main(){
 		printf("\n ~~~~~~~~ L = %i ~~~~~~~~\n", L);
 		int red[L*L];
 
-		for (p = 0.1; p<1; p = p + 0.05){ //calculo la fuerza para cada probabilidad
+		for (p = 0.1; p<1; p = p + 0.01){ //calculo la fuerza para cada probabilidad
 			
 			for (i = 0; i < n_promediado; i++){
 
