@@ -1,14 +1,14 @@
-P1: a) hecho, b) hecho, hacer todo el resto.
+P1: a) hecho, b) hecho, c) hacer el analisis de datos, d) datos listos para analizar
 
 P2: Corre todo, listo para redactar.
 
 P3: Corre todo, ajuste preliminar da D = 1.98 (de verdad da 1.89), listo para tomar datos y redactar.
 
-P4: todo (convendría hacer un programa que devuelva un .csv con el ns para cada p)
+P4: todo (ver si para s se apilan a la misma f??)
 
-P5: todo
+P5: todo (datos listos, ver la practica)
 
-P6: Corre todo, tomar un rango y hacer los ajustes.
+P6: Corre todo, tomar un rango y hacer los ajustes. (hacer 128)
 
 P7: todo
 

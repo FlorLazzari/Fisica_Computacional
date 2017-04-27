@@ -338,13 +338,13 @@ int masa(int N, int red[]){
 
 
 float calcular_p_c_a(int red[], int n, int n_precision, int n_promediar){
-	float p_c;
+	float p_c = 0;
 	float p;
 	p = 0.5;
 	double i;
 	float potencia;
 	int j;
-	float suma;
+	float suma = 0;
 	srand(time(NULL));
 	for (j=0; j < n_promediar; j++){
 		potencia = 1;
@@ -376,7 +376,7 @@ return p_c;
 // el promediado anda bien (probado con Masa.c, esta parece ser la que divide de mas)
 float calcular_p_c_b(int red[], int L, float p, int num_iteraciones){
 	int i;
-	int num_promediado = 50;
+	int num_promediado = 100;
 	float F[num_promediado];
 	float F_prom;
 	int j;
