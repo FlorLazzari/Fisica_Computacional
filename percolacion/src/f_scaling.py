@@ -4,6 +4,21 @@ Spyder Editor
 
 This is a temporary script file.
 """
+import numpy as np
+
+def abre_archivo (fn):
+    array = []
+    for line in fn.readlines():
+        array.append(line.rstrip('\n').split(','))
+        for i in range (len(array)):
+            for j in range (len(array[i])):
+                array[i][j] = float (array[i][j])
+    return array
+
+g = open('datosdist_nscsv.csv', 'r')
+array = abre_archivo(g)
+
+
 p1 = np.zeros(99)
 ns1 = np.zeros(99)
 s1 = np.zeros(99)

@@ -20,8 +20,8 @@ fuerza = np.zeros((6,91))
 
 for i in range(6):
     for j in range(91):
-        fuerza[i,j] = datos_fuerza[91*(i)+j,2] 
-        
+        fuerza[i,j] = datos_fuerza[91*(i)+j,2]
+
 plt.figure()
 for i in range(6):
     plt.plot(p_f, fuerza[i,:], label = 'L= {:d}'.format(L[i]))
@@ -30,3 +30,4 @@ plt.xlabel('Probabilidad de ocupacion')
 plt.ylabel('Fuerza del cluster percolante')
 plt.title('Intensidad del cluster percolante $P(p)$')
 plt.legend()
+plt.show()

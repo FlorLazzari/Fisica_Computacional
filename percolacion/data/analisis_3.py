@@ -19,23 +19,32 @@ M = datos_masa[:,1]
 plt.figure()
 plt.plot(L,M)
 plt.grid(True)
-plt.xlabel('Tamaño de la red $L$')
+plt.xlabel(r'Tamano de la red $L$')
 plt.ylabel('Masa del cluster percolante')
-plt.title('Masa del cluster percolante en función del tamaño')
+plt.title('Masa del cluster percolante en funcion del tamano')
 plt.legend()
+plt.show()
 
 log_L = np.log(L)
 log_M = np.log(M)
 
 plt.figure()
-plt.plot(log_L,log_M, color='b', label='Datos')
+plt.scatter(log_L,log_M, color='b', label='Datos')
 plt.grid(True)
-plt.xlabel('Tamaño de la red $\log(L)$')
-plt.ylabel('Masa del cluster percolante')
-plt.title('Masa del cluster percolante en función del tamaño (escala log-log)')
+plt.xlabel(r'Tamano de la red $log(L)$')
+plt.ylabel(r'Masa del cluster percolante $log(M)$')
+plt.title('Masa del cluster percolante en funcion del tamano (escala log-log)')
 plt.legend()
 
-f = lambda x, m: m*x
-D = curve_fit(f, log_L, log_M)[0][0]
-plt.plot(log_L, D*log_L, color='r', label='Ajuste')
+
+
+D = np.polyfit(log_L, log_M,1)[0]
+b = np.polyfit(log_L, log_M,1)[1]
+plt.plot(log_L, D*log_L + b, color='r', label='Ajuste con b = {} y D = {}'.format(b,D))
 plt.legend()
+
+f = lambda x, m, b: m*x
+D = curve_fit(f, log_L, log_M)[0][0]
+plt.plot(log_L, D*log_L , color='g', label='Ajuste con b = 0 y D = {}'.format(D))
+plt.legend()
+plt.show()

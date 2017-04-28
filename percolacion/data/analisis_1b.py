@@ -15,12 +15,12 @@ datos = np.loadtxt("datos 1b_posta.csv", delimiter = ',', skiprows=1)
 
 p = np.arange(0, 1, 0.01)
 L = np.array([4,8,16,32,64,128])
-F = np.zeros((6,100)) # el primer índice corresponde a L, para cada valor hay 
+F = np.zeros((6,100)) # el primer índice corresponde a L, para cada valor hay
                       # 100 valores, cada uno correspondiente a una p
 
 for i in range(6):
     for j in range(100):
-        F[i,j] = datos[100*(i)+j,2]  
+        F[i,j] = datos[100*(i)+j,2]
 
 plt.figure()
 for i in range(6):
@@ -30,3 +30,4 @@ plt.xlabel('Probabilidad de ocupacion')
 plt.ylabel('Probabilidad de percolacion')
 plt.title('Probabilidad de aparicion del cluster percolante $F(p)$')
 plt.legend()
+plt.show()
