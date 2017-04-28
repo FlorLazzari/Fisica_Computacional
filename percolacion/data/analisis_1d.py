@@ -16,16 +16,40 @@ dist = np.zeros((5,3,14)) # el primer indice corresponde a L, el segundo a
 # 0.58 0.59 0.6) y el ultimo indice es el n_s para el s correspondiente (tenemos
 # s de 1 a 14)
 
-dist_58 = zeros(())
-
 # rango para buscar p_c 
 p_4 = np.array([0.54, 0.55, 0.56]) # solo para L=4 
 p = np.array([0.58, 0.59, 0.6])    # para los demás L
 s = np.arange(1,15)
+L = np.array([4,8,16,32,64])
 
-for l in range(1,4):
+for p_s in range(3):
+    for ss in range(14):
+        dist[0,p_s,ss] = datos_ns[796 + 15*p_s + ss, 3]
+
+for l in range(1,5):
     for p_s in range(3):
         for ss in range(14):
             dist[l,p_s,ss] = datos_ns[2341 + 1485*(l-1) + 15*p_s + ss, 3]
 
-plt.loglog(s,dist[1,0,:])
+# andan individualmente pero no todas juntas??
+for l in range(5):
+    plt.figure()
+    for i in range(3):
+        plt.loglog(s,dist[l,i,:], label = '$p={:f}$'.format(p[i]))
+        plt.xlabel('Tamaño del cluster $\s$')
+        plt.ylabel('Densidad de clusters $n_s$')
+        plt.title('Distribucion de clusters para L={:d}'.format(L[l]))
+        plt.grid(True)
+        
+        
+log_s = np.log(s)
+log_ns = np.log(dist)
+
+for l in range(5):
+    plt.figure()
+    for i in range(3):
+        plt.plot(log_s,log_ns[l,i,:], label = '$p={:f}$'.format(p[i]))
+        plt.xlabel('Tamaño del cluster $\s$')
+        plt.ylabel('Densidad de clusters $n_s$')
+        plt.title('Distribucion de clusters para L={:d}, escala log-log'.format(L[l]))
+        plt.grid(True)    
