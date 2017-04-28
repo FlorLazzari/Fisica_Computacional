@@ -28,7 +28,7 @@ log_L = np.log(L)
 log_M = np.log(M)
 
 plt.figure()
-plt.plot(log_L,log_M)
+plt.plot(log_L,log_M, color='b', label='Datos')
 plt.grid(True)
 plt.xlabel('Tamaño de la red $\log(L)$')
 plt.ylabel('Masa del cluster percolante')
@@ -37,3 +37,5 @@ plt.legend()
 
 f = lambda x, m: m*x
 D = curve_fit(f, log_L, log_M)[0][0]
+plt.plot(log_L, D*log_L, color='r', label='Ajuste')
+plt.legend()

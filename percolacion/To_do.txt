@@ -1,8 +1,8 @@
-P1: a) hecho, b) hecho, c) hacer el analisis de datos, d) datos listos para analizar
+P1: a) hecho, b) hecho, c) hecho para el primer metodo, d) datos listos para analizar
 
-P2: Corre todo, listo para redactar.
+P2: hecho, listo para redactar
 
-P3: Corre todo, ajuste preliminar da D = 1.98 (de verdad da 1.89), listo para tomar datos y redactar.
+P3: hecho, listo para redactar (la D da 1.75 , siendo el valor teorico 1.89)
 
 P4: todo (ver si para s se apilan a la misma f??)
 

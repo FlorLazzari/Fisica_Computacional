@@ -24,7 +24,7 @@ for i in range(6):
 
 plt.figure()
 for i in range(6):
-    plt.plot(p,F[i,:], label = 'L= {:d}'.format(L[i]))
+    plt.plot(p,F[i,:], marker='*', label = 'L= {:d}'.format(L[i]))
 plt.grid(True)
 plt.xlabel('Probabilidad de ocupacion')
 plt.ylabel('Probabilidad de percolacion')
