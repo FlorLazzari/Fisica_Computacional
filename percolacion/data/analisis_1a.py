@@ -40,7 +40,7 @@ plt.close(fig)
 
 
 plt.figure()
-plt.scatter(L, pc_prom, color='b', label = 'p_c')
+plt.plot(L, pc_prom, color='b', label = 'p_c', markersize = 20, marker = 'o', linestyle = 'none')
 plt.xlabel('Tamaño de la red $L$', fontsize=12)
 plt.ylabel('Probabilidad crítica', fontsize=12)
 plt.title('Probabilidad crítica $p_c$ en función del tamaño', fontsize=20)
