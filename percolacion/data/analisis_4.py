@@ -23,7 +23,7 @@ f1 = ns1/(0.01678) # es el ns de pc para s=1
 z1 = (s1**(0.39))*(p1-pc)
 
 plt.plot(z1, f1)
-plt.show()
+# plt.show()
 
 
 p2 = np.zeros(99)
@@ -40,7 +40,7 @@ f2 = ns2/(0.00351) # es el ns de pc para s igual a dos
 z2 = (s2**(0.39))*(p2-pc)
 
 plt.plot(z2, f2)
-plt.show()
+# plt.show()
 
 ################################################################################
 
@@ -55,17 +55,19 @@ ns_c = np.zeros((14))
 for i in range(14):
     ns_c[i] = datos_ns[6811+i, 3]
 
+sigma = 0.39
 
-tau = 0.39
-
-for i in range(12):
+for i in range(14):
     for j in range(99):
         p[i,j] = datos_ns[5941+i+15*j, 1]
         ns[i,j] = datos_ns[5941+i+15*j, 3]
-        s[i,j] = datos_ns[5941+i+15*j, 2]
+        # s[i,j] = datos_ns[5941+i+15*j, 2]
+        s = np.arange(1,15)
         f[i,j] = ns[i,j]/ns_c[i]
-        z[i,j] = (s[i,j]**(tau))*(p[i,j]-pc)
-    plt.plot(z[i,:], f[i,:])
+        z[i,j] = (s[i]**(sigma))*(p[i,j]-pc)
+    plt.plot(z[i,:], f[i,:], label = "s = {}".format(s[i]))
+    plt.grid(True)
     plt.legend(fontsize=18, loc='best')
+
 
 plt.show()
