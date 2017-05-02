@@ -7,6 +7,8 @@ Created on Thu Apr 27 21:50:44 2017
 """
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
 
 # tener el archivo de datos en el mismo directorio!!
 datos_ns = np.loadtxt("datos dist_ns_posta.csv", delimiter = ',', skiprows=1)
@@ -47,13 +49,28 @@ for l in range(1,5):
 log_s = np.log(s)
 log_ns = np.log(dist)
 
+f = lambda x, m, b: m*x+b
+
+# color = {}
+#
+# color['0']='b'
+# color['1']='g'
+# color['2']='r'
+
+color = ['b','g','r']
+
 for l in range(1,5):
     plt.figure()
     for i in range(3):
-        plt.plot(log_s,log_ns[l,i,:], label = '$p={:f}$'.format(p[i]))
         plt.xlabel(r'Tamano del cluster $s$')
+        plt.scatter(log_s,log_ns[l,i,:],color=color[i], label = '$p={:f}$'.format(p[i]))
         plt.ylabel(r'Densidad de clusters $n_s$')
         plt.title('Distribucion de clusters para L={:d}, escala log-log'.format(L[l]))
+        popt, pcov = curve_fit(f, log_s, log_ns[l,i,:])
+        m = curve_fit(f, log_s, log_ns[l,i,:])[0][0]
+        b = curve_fit(f, log_s, log_ns[l,i,:])[0][1]
+        plt.plot(log_s, m*log_s+b, color=color[i], label='Ajuste con $m$ = {:.3f} y $b$ = {:.3f}'.format(m,b))
+        plt.legend(loc='best')
         plt.grid(True)
         plt.legend()
 plt.show()
@@ -63,7 +80,7 @@ for i in range(3):
     plt.plot(log_s,log_ns[0,i,:], label = '$p={:f}$'.format(p_4[i]))
     plt.xlabel(r'Tamano del cluster $s$')
     plt.ylabel(r'Densidad de clusters $n_s$')
-    plt.title('Distribucion de clusters para L={:d}, escala log-log'.format(L[l]))
+    plt.title('Distribucion de clusters para L={:d}, escala log-log'.format(L[0]))
     plt.grid(True)
     plt.legend()
 plt.show()
