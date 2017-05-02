@@ -21,7 +21,7 @@ int main(){
 
 	//for (L=4; L<128; L=L*2){
 
-	int L = 128;
+	int L = 6;
 
 		float array_ns[n_prom];
 
