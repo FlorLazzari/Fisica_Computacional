@@ -35,26 +35,26 @@ for i in range(14):
         z[i,j] = (s[i]**(sigma))*(p[j]-pc)
     plt.plot(z[i,:], f[i,:], label = "s = {}".format(s[i]))
     plt.grid(True)
-    plt.xlabel(r'$s^{\sigma} \epsilon$',fontsize = 15)
-    plt.ylabel(r'$f(z)$',fontsize = 15)
-    plt.title('Funcion de Scaling') #falta la tilde
+    plt.xlabel(r'$s^{\sigma} \varepsilon$',fontsize = 20)
+    plt.ylabel(r'$f(z)$',fontsize = 20)
+    plt.title('Funcion de Scaling',fontsize = 20) #falta la tilde
     plt.legend(fontsize=18, loc='best')
 
 
 ################################################################################
 
-plt.figure()
-for i in range(14):
-    for j in range(99):
-        ns[i,j] = datos_ns[5941+i+15*j, 3]
-        f[i,j] = ns[i,j]/(s[i]**(-tau))
-        z[i,j] = (s[i]**(sigma))*(p[j]-pc)
-    plt.plot(z[i,:], f[i,:], label = "s = {}".format(s[i]))
-    plt.grid(True)
-    plt.xlabel(r'$s^{\sigma} \epsilon$',fontsize = 15)
-    plt.ylabel(r'$f(z)$',fontsize = 15)
-    plt.title('Funcion de Scaling') #falta la tilde
-    plt.legend(fontsize=18, loc='best')
-
-
+# plt.figure()
+# for i in range(14):
+#     for j in range(99):
+#         ns[i,j] = datos_ns[5941+i+15*j, 3]
+#         f[i,j] = ns[i,j]/(s[i]**(-tau))
+#         z[i,j] = (s[i]**(sigma))*(p[j]-pc)
+#     plt.plot(z[i,:], f[i,:], label = "s = {}".format(s[i]))
+#     plt.grid(True)
+#     plt.xlabel(r'$s^{\sigma} \epsilon$',fontsize = 15)
+#     plt.ylabel(r'$f(z)$',fontsize = 15)
+#     plt.title('Funcion de Scaling') #falta la tilde
+#     plt.legend(fontsize=18, loc='best')
+#
+#
 plt.show()
