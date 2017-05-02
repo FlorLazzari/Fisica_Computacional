@@ -8,6 +8,7 @@ Created on Mon May  1 23:03:49 2017
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 datos_ns = np.loadtxt("datos dist_ns_L128.csv", delimiter = ',', skiprows=1)
 
@@ -30,4 +31,16 @@ plt.legend(loc='best')
   
 #%% p_max para cada s
 
-p_max = np.array([0.19, ])  
+pc = 0.585
+p_max = np.array([0.19, 0.240, 0.28, 0.31, 0.34, 0.35, 0.37, 0.38, 0.38, 0.4, 0.42, 0.42, 0.41, 0.43,]) 
+eps = abs(p_max - pc)
+log_s = np.log(s)
+log_eps = np.log(eps)
+
+plt.figure()
+plt.scatter(log_s, log_eps) 
+plt.grid(True)
+
+f = lambda x, m, b: m*x+b
+popt, pcov = curve_fit(f, log_s, log_eps)
+
