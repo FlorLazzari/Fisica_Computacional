@@ -1,4 +1,4 @@
-P1: a) hecho, b) hecho, c) hecho para el primer metodo, d) datos listos para analizar
+P1: a) hecho, b) hecho, c) hecho para el primer metodo, d) falta ajustar por rectas
 
 P2: hecho, listo para redactar
 
@@ -10,5 +10,21 @@ P5: todo (datos listos, ver la practica)
 
 P6: Corre todo, tomar un rango y hacer los ajustes. (hacer 128)
 
-P7: todo
+P7: hecho (en papel), listo para redactar
 
+
+~~~~~INFORME~~~~~
+
+P1: a) y c) hechos, b) falta discusión del límite y valores de p_c, d) todo
+
+P2: falta discusión
+
+P3: falta discusión, long de correlacion?
+
+P4: todo
+
+P5: todo
+
+P6: todo
+
+P7: todo
